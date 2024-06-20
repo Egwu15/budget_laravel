@@ -1,5 +1,10 @@
 <div>
 
+    <div class="flex my-4 justify-end">
+        <button class="btn btn-outline">Add Category</button>
+      
+    </div>
+
     <div class="relative overflow-x-auto">
         <table class="w-full text-sm text-center text-gray-500 dark:text-gray-400">
             <thead class="text-xs text-gray-700 uppercase bg-gray-50">
