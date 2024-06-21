@@ -1,12 +1,12 @@
 <div>
 
-    <div class="flex my-4 justify-end">
-        <button class="btn btn-outline">Add Category</button>
-      
+    <div class="flex my-4 justify-end mb-3">
+        <a class="btn btn-outline" href="{{route("addTransaction")}}" wire:navigate>Add Transaction </a>
+
     </div>
 
     <div class="relative overflow-x-auto">
-        <table class="w-full text-sm text-center text-gray-500 dark:text-gray-400">
+        <table class="w-full text-sm text-center text-gray-500">
             <thead class="text-xs text-gray-700 uppercase bg-gray-50">
                 <tr>
                     <th scope="col" class="px-6 py-3">

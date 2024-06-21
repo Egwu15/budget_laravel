@@ -18,5 +18,5 @@ export default {
         },
     },
 
-    plugins: [forms, daisyui],
+    plugins: [daisyui, forms],
 };
