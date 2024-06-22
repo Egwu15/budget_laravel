@@ -33,6 +33,7 @@ class TransactionController extends Controller
         return redirect()->back()->with('error', 'Transaction not added');
     }
 
+    
     public function create()
     {
         $categories = Category::all();
