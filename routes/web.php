@@ -1,7 +1,8 @@
 <?php
 
+use App\Http\Controllers\CategoryController;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\transactionController;
+use App\Http\Controllers\TransactionController;
 
 
 Route::view('/', 'dashboard')
@@ -12,13 +13,14 @@ Route::view('profile', 'profile')
     ->middleware(['auth'])
     ->name('profile');
 
-Route::get('addTransaction', [TransactionController::class, 'create'])
-    ->middleware(['auth'])
-    ->name('addTransaction');
+Route::resource('transactions', TransactionController::class)
+    ->middleware(['auth']);
 
-Route::post('addTransaction', 'TransactionController@store')
-    ->middleware(['auth'])
-    ->name('addNewTransaction');
+// Route::post('add', 'TransactionController@store')
+//     ->middleware(['auth'])
+//     ->name('addNewTransaction');
 
+Route::resource('category', CategoryController::class)
+    ->middleware(['auth']);
 
 require __DIR__ . '/auth.php';

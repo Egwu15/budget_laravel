@@ -11,7 +11,7 @@ class Transaction extends Model
     protected $fillable = ['amount', 'category_id', 'user_id', 'description', 'type'];
     public function category()
     {
-        return $this->hasOne(Category::class);
+        return $this->belongsTo(Category::class);
     }
 
     public function user()

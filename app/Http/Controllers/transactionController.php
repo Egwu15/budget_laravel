@@ -6,21 +6,31 @@ use App\Models\Category;
 use Illuminate\Http\Request;
 use App\Models\Transaction;
 
-class transactionController extends Controller
+class TransactionController extends Controller
 {
+
+    public function index()
+    {
+        $categories = Category::all();
+        return view('addTransaction', ["categories" => $categories]);
+    }
+
     public function store(Request $request)
     {
         $validatedData = $request->validate([
             'amount' => 'required|numeric',
-            'category_id' => 'required|numeric',
+            'category_id' => 'required|numeric|exists:categories,id',
             'description' => 'required|string',
             'type' => 'required|string',
         ]);
 
-
+        $validatedData['user_id'] = auth()->id();
         $transaction = new Transaction();
         $transaction->fill($validatedData);
-        $transaction->save();
+        if ($transaction->save()) {
+            return redirect()->route('dashboard')->with('success', 'Transaction added successfully');
+        }
+        return redirect()->back()->with('error', 'Transaction not added');
     }
 
     public function create()
