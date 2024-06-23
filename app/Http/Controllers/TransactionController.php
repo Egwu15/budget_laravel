@@ -12,6 +12,12 @@ class TransactionController extends Controller
     public function index()
     {
         $categories = Category::all();
+        return view('transaction', ["categories" => $categories]);
+    }
+
+    public function create()
+    {
+        $categories = Category::all();
         return view('addTransaction', ["categories" => $categories]);
     }
 
@@ -31,12 +37,5 @@ class TransactionController extends Controller
             return redirect()->route('dashboard')->with('success', 'Transaction added successfully');
         }
         return redirect()->back()->with('error', 'Transaction not added');
-    }
-
-    
-    public function create()
-    {
-        $categories = Category::all();
-        return view('addTransaction', ["categories" => $categories]);
     }
 }
