@@ -63,9 +63,9 @@ class ShowDashboard extends Component
         $monthDebit = User::with('transaction')->find(Auth::id())->transaction()->where('type', 'expense')->whereMonth('created_at', date('m'))->sum('amount');
 
         return view('livewire.show-dashboard', [
-            'monthCredit' => $monthCredit,
-            'monthDebit' => $monthDebit,
-            'monthBalance' => $monthCredit - $monthDebit,
+            'monthCredit' =>  number_format($monthCredit),
+            'monthDebit' => number_format($monthDebit),
+            'monthBalance' => number_format($monthCredit - $monthDebit),
             'transactions' => $this->getAnnualTransactions(),
         ]);
     }
