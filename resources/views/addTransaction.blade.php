@@ -70,7 +70,7 @@
                     <label for="amount" class="block mb-2 text-sm font-medium ">
                         Amount
                     </label>
-                    <input type="number" id="amount" name="amount"
+                    <input type="text" id="amount" name="amount"
                         class="shadow-sm bg-gray-50 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
                         required />
                 </div>

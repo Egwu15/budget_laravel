@@ -53,7 +53,7 @@
                                     {{ $transaction->category->name }}
                                 </td>
                                 <td class="px-6 py-4">
-                                    {{ $transaction->amount }}
+                                    {{ number_format($transaction->amount) }}
                                 </td>
                                 <td class="px-6 py-4">
                                     {{ $transaction->created_at->format('d-m-Y') }}
@@ -90,10 +90,10 @@
                         </button>
                     </div>
                 </div>
-            </dialog>
+                </dialog>
+            </div>
         </div>
+
+
     </div>
-
-
-</div>
 </div>

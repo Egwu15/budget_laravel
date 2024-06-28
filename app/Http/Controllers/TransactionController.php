@@ -34,7 +34,7 @@ class TransactionController extends Controller
         $transaction = new Transaction();
         $transaction->fill($validatedData);
         if ($transaction->save()) {
-            return redirect()->route('dashboard')->with('success', 'Transaction added successfully');
+            return redirect()->route('transactions.index')->with('success', 'Transaction added successfully');
         }
         return redirect()->back()->with('error', 'Transaction not added');
     }
