@@ -13,7 +13,7 @@
 
         @if ($transactions->isNotEmpty())
 
-       
+
             <div x-data="{ openDeletePopup: false, deleteTransactionId: null }">
                 <table class="w-full text-sm text-center text-gray-500 mb-7">
                     <thead class="text-xs text-gray-700 uppercase bg-gray-50">
@@ -77,7 +77,7 @@
 
         <div x-show='openDeletePopup'>
 
-            <dialog class="modal modal-open">
+            <div :class="{ 'modal-open modal': openDeletePopup }">
                 <div class="modal-box bg-white text-black md:max-w-md">
                     <h3 class="text-lg font-medium text-center">Are you sure you want to delete this transaction?</h3>
                     <div class="modal-backdrop">
