@@ -30,12 +30,12 @@ class ShowDashboard extends Component
             ->whereBetween("created_at", [now()->subYear(), now()->endOfYear()])
             ->get()
             ->groupBy(function ($date) {
-                return Carbon::parse($date->created_at)->format('m'); // Group by month
+                return Carbon::parse($date->created_at)->format('m');
             });
 
 
-        $creditTransactions = [];
-        $debitTransactions = [];
+        $creditTransactions =  $debitTransactions = [];
+
         for ($i = 1; $i < 13; $i++) {
             $date = DateTime::createFromFormat('m', sprintf('%02d', $i))->format('F');
             $creditTransactions[$date] = 0;
@@ -43,8 +43,8 @@ class ShowDashboard extends Component
         }
 
         foreach ($transactions as $month => $trans) {
-            $credit = $trans->where('type', 'income')->sum('amount');
-            $debit = $trans->where('type', 'expense')->sum('amount');
+            $credit =   $trans->where('type', 'income')->sum('amount');
+            $debit  =   $trans->where('type', 'expense')->sum('amount');
             $formattedMonth = DateTime::createFromFormat('m', sprintf('%02d', $month))->format('F');
             $creditTransactions[$formattedMonth] = $credit;
             $debitTransactions[$formattedMonth] = $debit;
@@ -57,10 +57,30 @@ class ShowDashboard extends Component
         ];
     }
 
+    private function getMonthlyTransactions($userID, $transactionType)
+    {
+        return User::with('transaction')->find($userID)->transaction()
+            ->where('type', $transactionType)
+            ->whereMonth('created_at', date('m'))
+            ->sum('amount');
+    }
+
     public function render()
     {
-        $monthCredit = User::with('transaction')->find(Auth::id())->transaction()->where('type', 'income')->whereMonth('created_at', date('m'))->sum('amount');
-        $monthDebit = User::with('transaction')->find(Auth::id())->transaction()->where('type', 'expense')->whereMonth('created_at', date('m'))->sum('amount');
+
+        $userId = Auth::id();
+
+        if (!$userId) {
+            return view('livewire.show-dashboard', [
+                'monthCredit' => 0,
+                'monthDebit' => 0,
+                'monthBalance' => 0,
+                'transactions' => [],
+            ]);
+        }
+
+        $monthCredit = $this->getMonthlyTransactions($userId, 'income');
+        $monthDebit = $this->getMonthlyTransactions($userId, 'expense');
 
         return view('livewire.show-dashboard', [
             'monthCredit' =>  number_format($monthCredit),
