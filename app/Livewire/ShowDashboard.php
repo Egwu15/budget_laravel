@@ -2,18 +2,40 @@
 
 namespace App\Livewire;
 
+use App\Models\Category;
 use Livewire\Component;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
 use DateTime;
+use Illuminate\Support\Facades\DB;
+use App\Models\Transaction;
 
 class ShowDashboard extends Component
 {
 
 
+
+    public $pieChart;
+
+
     public function mount()
     {
+
+        $startDate = now()->startOfMonth();
+        $endDate = now()->endOfMonth();
+
+
+
+
+        $this->pieChart = Transaction::with('category')
+            ->where('user_id', '=', Auth::id())
+            ->whereBetween('created_at', [$startDate, $endDate])
+            ->select('category_id', DB::raw('SUM(amount) as total_transactions'))
+            ->groupBy('category_id')
+            ->get()
+            ->pluck('total_transactions', 'category.name')
+            ->toArray();
     }
 
     public function getAnnualTransactions()
