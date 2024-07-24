@@ -70,34 +70,36 @@
 
 
             new Chart(ctx, {
-                type: 'bar',
-                data: {
-                    labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September',
-                        'October', 'November', 'December'
-                    ],
-                    datasets: [{
-                            label: 'Income',
-                            data: [{{ implode(', ', array_values($transactions['credit'])) }}],
-                            borderWidth: 1
-                        },
-                        {
-                            label: 'Expense',
-                            data: [{{ implode(', ', array_values($transactions['debit'])) }}],
-                            borderWidth: 1
-                        }
-                    ]
-                },
-                options: {
-                    responsive: true, // Make the chart responsive
-                    maintainAspectRatio: true,
-                    scales: {
-                        y: {
-                            beginAtZero: true
+                    type: 'bar',
+                    data: {
+                        labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September',
+                            'October', 'November', 'December'
+                        ],
+                        datasets: [{
+                                label: 'Income',
+                                data: [{{ implode(', ', array_values($transactions['credit'])) }}],
+                                borderWidth: 1
+                            },
+                            {
+                                label: 'Expense',
+                                data: [{{ implode(', ', array_values($transactions['debit'])) }}],
+                                borderWidth: 1
+                            }
+                        ]
+                    },
+                    options: {
+                        responsive: true, // Make the chart responsive
+                        maintainAspectRatio: true,
+                        scales: {
+                            y: {
+                                beginAtZero: true
 
+                            }
                         }
                     }
                 }
-            });
+
+            );
         </script>
     @endscript
 
@@ -106,7 +108,7 @@
             let ctx = document.getElementById('pieChart');
 
 
-            new Chart(ctx, {
+            let chart = new Chart(ctx, {
                 type: 'pie',
                 data: {
                     labels: [{!! '"' . implode('", "', array_keys($pieChart)) . '"' !!}],
@@ -125,6 +127,19 @@
                     }
                 }
             });
+
+            ctx.onclick = function(e) {
+                let elements = chart.getElementsAtEventForMode(e, 'nearest', {
+                    intersect: true
+                }, false);
+                if (elements.length) {
+                    let index = elements[0].index;
+                    let label = chart.data.labels[index];
+                    // Continue with your logic here
+                    //TODO: add logic to navigate to the category page 
+                    console.log(`Clicked on slice: ${label}`);
+                }
+            };
         </script>
     @endscript
 

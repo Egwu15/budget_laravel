@@ -11,13 +11,13 @@ class TransactionController extends Controller
 
     public function index()
     {
-        $categories = Category::all();
+        $categories = Category::where('user_id', auth()->id())->orWhere('default', true)->get();
         return view('transaction', ["categories" => $categories]);
     }
 
     public function create()
     {
-        $categories = Category::all();
+        $categories = Category::where('user_id', auth()->id())->orWhere('default', true)->get();
         return view('addTransaction', ["categories" => $categories]);
     }
 

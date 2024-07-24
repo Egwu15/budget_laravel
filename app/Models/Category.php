@@ -8,9 +8,15 @@ use Illuminate\Database\Eloquent\Model;
 class Category extends Model
 {
     use HasFactory;
-    protected $fillable = ['name'];
+    protected $fillable = ['name, default, user_id'];
 
-    public function transactions(){
-        $this-> hasMany(Transaction::class);
+    public function transactions()
+    {
+        $this->hasMany(Transaction::class);
+    }
+
+    public function user()
+    {
+        $this->belongsTo(User::class);
     }
 }
