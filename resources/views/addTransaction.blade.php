@@ -1,6 +1,6 @@
 <x-app-layout>
     <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+        <h2 class="text-xl font-semibold leading-tight text-gray-800">
             {{ __('Add Transactions') }}
         </h2>
     </x-slot>
@@ -20,7 +20,7 @@
         @endif
 
         @if ($errors->any())
-            <div class="bg-red-500 text-white max-w-md rounded-md text-center mx-auto p-5">
+            <div class="max-w-md p-5 mx-auto text-center text-white bg-red-500 rounded-md">
                 <ul>
                     @foreach ($errors->all() as $error)
                         <li>{{ $error }}</li>
@@ -29,13 +29,13 @@
             </div>
         @endif
 
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+        <div class="mx-auto max-w-7xl sm:px-6 lg:px-8">
             <div class="flex justify-end px-5">
                 <button class="btn outline bg-transparent py-2.5" onclick="addCategoryModal.showModal()">
                     Add Category
                 </button>
                 <dialog id="addCategoryModal" class="modal">
-                    <div class="modal-box bg-white text-black md:max-w-md">
+                    <div class="text-black bg-white modal-box md:max-w-md">
                         <h1 class="text-lg font-medium">Add Category</h1>
 
 
@@ -49,8 +49,8 @@
                                 border border-gray-300 text-gray-500 text-sm rounded-lg focus:ring-blue-500
                                 focus:border-blue-500 block w-full p-2.5"
                                 required />
-                            <button type="submit" class="btn bg-white w-full mt-5 mb-3 text-gray-500">Submit</button>
-                            <button type="button" class="btn bg-white w-full text-gray-500"
+                            <button type="submit" class="w-full mt-5 mb-3 text-gray-500 bg-white btn">Submit</button>
+                            <button type="button" class="w-full text-gray-500 bg-white btn"
                                 onclick="addCategoryModal.close()">Close
                             </button>
 
@@ -87,12 +87,8 @@
                     </select>
                 </div>
 
-                <div class="mb-5">
-                    <label for="description" class="block mb-2 text-sm font-medium ">Description</label>
-                    <input type="description" id="description" name="description"
-                        class="shadow-sm bg-gray-50 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-                        required />
-                </div>
+            
+                <livewire:SearchTransactions />
 
                 <div class="mb-5">
                     <label for="type" class="block mb-2 text-sm font-medium ">Transaction Type</label>
