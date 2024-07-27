@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Livewire;
+
 use Livewire\Component;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
@@ -27,6 +28,7 @@ class ShowDashboard extends Component
 
 
         $this->pieChart = Transaction::with('category')
+            ->where('type', 'expense')
             ->where('user_id', '=', Auth::id())
             ->whereBetween('created_at', [$startDate, $endDate])
             ->select('category_id', DB::raw('SUM(amount) as total_transactions'))
