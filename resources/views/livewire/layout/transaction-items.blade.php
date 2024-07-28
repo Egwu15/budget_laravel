@@ -1,6 +1,6 @@
 <div>
 
-    <div class="flex my-4 justify-end mb-3">
+    <div class="flex justify-end my-4 mb-3">
         <a class="btn btn-outline" href="{{ route('transactions.create') }}" wire:navigate>Add Transaction </a>
 
     </div>
@@ -56,10 +56,10 @@
                                     {{ number_format($transaction->amount) }}
                                 </td>
                                 <td class="px-6 py-4">
-                                    {{ $transaction->created_at->format('d-m-Y') }}
+                                    {{ $transaction->transaction_date->format('d M Y') }}
 
                                 </td>
-                                <td class="px-6 py-4 flex justify-center">
+                                <td class="flex justify-center px-6 py-4">
                                     <button
                                         x-on:click = "openDeletePopup = true; deleteTransactionId={{ $transaction->id }}">
                                         <img src="{{ asset('icons/delete.svg') }}" />
@@ -78,14 +78,14 @@
         <div x-show='openDeletePopup'>
 
             <div :class="{ 'modal-open modal': openDeletePopup }">
-                <div class="modal-box bg-white text-black md:max-w-md">
+                <div class="text-black bg-white modal-box md:max-w-md">
                     <h3 class="text-lg font-medium text-center">Are you sure you want to delete this transaction?</h3>
                     <div class="modal-backdrop">
                         @csrf
                         <button @click="$wire.call('deleteTransaction', deleteTransactionId);"
-                            class="btn bg-red-500 w-full mt-5 mb-3 border-none text-white">DELETE</button>
+                            class="w-full mt-5 mb-3 text-white bg-red-500 border-none btn">DELETE</button>
 
-                        <button type="button" class="btn bg-white w-full text-gray-500"
+                        <button type="button" class="w-full text-gray-500 bg-white btn"
                             @click="openDeletePopup = false">Close
                         </button>
                     </div>

@@ -13,8 +13,6 @@ use App\Models\Transaction;
 class ShowDashboard extends Component
 {
 
-
-
     public $pieChart;
 
 
@@ -23,9 +21,6 @@ class ShowDashboard extends Component
 
         $startDate = now()->startOfMonth();
         $endDate = now()->endOfMonth();
-
-
-
 
         $this->pieChart = Transaction::with('category')
             ->where('type', 'expense')
@@ -56,7 +51,7 @@ class ShowDashboard extends Component
             });
 
 
-        $creditTransactions =  $debitTransactions = [];
+        $creditTransactions = $debitTransactions = [];
 
         for ($i = 1; $i < 13; $i++) {
             $date = DateTime::createFromFormat('m', sprintf('%02d', $i))->format('F');
@@ -65,8 +60,8 @@ class ShowDashboard extends Component
         }
 
         foreach ($transactions as $month => $trans) {
-            $credit =   $trans->where('type', 'income')->sum('amount');
-            $debit  =   $trans->where('type', 'expense')->sum('amount');
+            $credit = $trans->where('type', 'income')->sum('amount');
+            $debit = $trans->where('type', 'expense')->sum('amount');
             $formattedMonth = DateTime::createFromFormat('m', sprintf('%02d', $month))->format('F');
             $creditTransactions[$formattedMonth] = $credit;
             $debitTransactions[$formattedMonth] = $debit;
@@ -105,7 +100,7 @@ class ShowDashboard extends Component
         $monthDebit = $this->getMonthlyTransactions($userId, 'expense');
 
         return view('livewire.show-dashboard', [
-            'monthCredit' =>  number_format($monthCredit),
+            'monthCredit' => number_format($monthCredit),
             'monthDebit' => number_format($monthDebit),
             'monthBalance' => number_format($monthCredit - $monthDebit),
             'transactions' => $this->getAnnualTransactions(),

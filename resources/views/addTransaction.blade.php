@@ -87,8 +87,17 @@
                     </select>
                 </div>
 
-            
+
                 <livewire:SearchTransactions />
+
+                <div class="mb-5">
+                    <label for="transaction_date" class="block mb-2 text-sm font-medium ">
+                        Transaction Date
+                    </label>
+                    <input type="date" id="transaction_date" name="transaction_date" value="{{ date("Y-m-d") }}"
+                        class="shadow-sm bg-gray-50 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                        required />
+                </div>
 
                 <div class="mb-5">
                     <label for="type" class="block mb-2 text-sm font-medium ">Transaction Type</label>

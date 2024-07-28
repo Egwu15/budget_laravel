@@ -9,7 +9,11 @@ use Illuminate\Support\Facades\Artisan;
 class Transaction extends Model
 {
     use HasFactory;
-    protected $fillable = ['amount', 'category_id', 'user_id', 'description', 'type'];
+    protected $fillable = ['amount', 'category_id', 'user_id', 'description', 'type', 'transaction_date'];
+
+    protected $casts = [
+        'transaction_date' => 'datetime'
+    ];
     public function category()
     {
         return $this->belongsTo(Category::class);

@@ -28,6 +28,7 @@ class TransactionController extends Controller
             'category_id' => 'required|numeric|exists:categories,id',
             'description' => 'required|string',
             'type' => 'required|string',
+            'transaction_date' => 'required|date',
         ]);
 
         $validatedData['user_id'] = auth()->id();

@@ -18,10 +18,6 @@ Route::view('profile', 'profile')
 Route::resource('transactions', TransactionController::class)
     ->middleware(['auth']);
 
-// Route::post('add', 'TransactionController@store')
-//     ->middleware(['auth'])
-//     ->name('addNewTransaction');
-
 Route::resource('category', CategoryController::class)
     ->middleware(['auth']);
 
