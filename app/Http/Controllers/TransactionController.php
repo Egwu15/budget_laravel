@@ -11,8 +11,7 @@ class TransactionController extends Controller
 
     public function index()
     {
-        $categories = Category::where('user_id', auth()->id())->orWhere('default', true)->get();
-        return view('transaction', ["categories" => $categories]);
+        return view('transaction');
     }
 
     public function create()

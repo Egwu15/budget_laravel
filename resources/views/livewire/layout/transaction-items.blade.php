@@ -1,5 +1,21 @@
 <div>
 
+
+
+    @if (session('success'))
+        <x-success-message>
+            {{ session('success') }}
+        </x-success-message>
+    @endif
+
+    @if (session('error'))
+        <x-error-message>
+            {{ session('error') }}
+        </x-error-message>
+    @endif
+
+
+
     <div class="flex justify-end my-4 mb-3">
         <a class="btn btn-outline" href="{{ route('transactions.create') }}" wire:navigate>Add Transaction </a>
 
@@ -82,7 +98,7 @@
                     <h3 class="text-lg font-medium text-center">Are you sure you want to delete this transaction?</h3>
                     <div class="modal-backdrop">
                         @csrf
-                        <button @click="$wire.call('deleteTransaction', deleteTransactionId);"
+                        <button @click="openDeletePopup = false; $wire.call('deleteTransaction', deleteTransactionId);"
                             class="w-full mt-5 mb-3 text-white bg-red-500 border-none btn">DELETE</button>
 
                         <button type="button" class="w-full text-gray-500 bg-white btn"
@@ -96,4 +112,23 @@
 
 
     </div>
+
+    @push('scripts')
+        <script type="module">
+            document.addEventListener('DOMContentLoaded', async () => {
+                const {
+                    Toast
+                } = await import('{{ asset('build/assets/toast.js') }}');
+
+                window.Livewire.on('transactionDeleted', (message) => {
+                    const toast = new Toast();
+                    toast.success(message);
+                });
+
+                window.Livewire.on('transactionNotDeleted', (message) => {
+                    toast.error(message);
+                });
+            });
+        </script>
+    @endpush
 </div>

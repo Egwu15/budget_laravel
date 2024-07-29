@@ -25,10 +25,11 @@ class TransactionItems extends Component
     {
         $transaction = Transaction::find($transactionId);
         if ($transaction->delete()) {
-            redirect()->route('dashboard')->with('success', 'Transaction deleted successfully');
+            $this->dispatch('transactionDeleted', 'Transaction deleted successfully');
             return;
         }
-        redirect()->back()->with('error', 'Transaction not deleted');
+
+        $this->dispatch('transactionNotDeleted', 'Transaction not deleted');
     }
 
     public function render()
